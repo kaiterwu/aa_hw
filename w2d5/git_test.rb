@@ -10,3 +10,4 @@ end
 #git add -A 
 #git commit -m "message or comment inside "
 #git push 
+#code . opens vscode in current directory 
