@@ -7,8 +7,7 @@ class Map
         if @storage.empty?
              @storage << [key,value]
         elsif @storage.any?{|pairs| key == pairs[0]}
-            
-            
+            @storage.each {|pairs|pairs[-1] = value if pairs[0] == key}
         else  
             @storage << [key,value]
         end
@@ -24,6 +23,6 @@ class Map
     end 
 
     def show 
-        print @storage 
+        return @storage 
     end 
 end 
