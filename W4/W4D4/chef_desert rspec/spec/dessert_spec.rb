@@ -68,7 +68,8 @@ describe Dessert do
   describe "#make_more" do
     it "calls bake on the dessert's chef with the dessert passed in" do 
       expect(chef).to receive(:bake).with(brownie)
-      #use receive to let chef use its bake method with our brownie instance 
+      #use receive to let chef use its bake method with our brownie instance
+      #expect that the current method allows chef to call bake with "desert" brownie
       brownie.make_more
     end 
   end
