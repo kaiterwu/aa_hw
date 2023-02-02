@@ -7,7 +7,9 @@ Instructions: implement all of the pending specs (the `it` statements without bl
 
 describe Dessert do
   subject(:brownie) {Dessert.new("brownie",50,chef)}
+  #create a instance that can be used throughout the entire spec 
   let(:chef) { double("chef", name: "Chef")}
+  #create a double "chef" instance that can be used independently of brownie 
 
   describe "#initialize" do
     it "sets a type" do 
@@ -58,6 +60,7 @@ describe Dessert do
   describe "#serve" do
     it "contains the titleized version of the chef's name" do 
     allow(chef).to receive(:titleize).and_return("Chef Chef the Great Baker")
+    #allow allows the chef double to use the titleize method and get output 
     expect(brownie.serve).to include("Chef")
     end 
   end
@@ -65,6 +68,7 @@ describe Dessert do
   describe "#make_more" do
     it "calls bake on the dessert's chef with the dessert passed in" do 
       expect(chef).to receive(:bake).with(brownie)
+      #use receive to let chef use its bake method with our brownie instance 
       brownie.make_more
     end 
   end
