@@ -61,6 +61,7 @@ describe Dessert do
     it "contains the titleized version of the chef's name" do 
     allow(chef).to receive(:titleize).and_return("Chef Chef the Great Baker")
     #allow allows the chef double to use the titleize method and get output 
+    #titleize doesn't have to exist in the lib file to use allow. 
     expect(brownie.serve).to include("Chef")
     end 
   end
