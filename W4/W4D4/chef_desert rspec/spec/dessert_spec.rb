@@ -8,7 +8,7 @@ Instructions: implement all of the pending specs (the `it` statements without bl
 describe Dessert do
   subject(:brownie) {Dessert.new("brownie",50,chef)}
   #create a instance that can be used throughout the entire spec 
-  let(:chef) { double("chef", name: "Chef")}
+  let(:chef) { double("Chef", name: "Chef")}
   #create a double "chef" instance that can be used independently of brownie 
 
   describe "#initialize" do
