@@ -13,6 +13,19 @@ end
 
 class Play
   attr_accessor :id, :title, :year, :playwright_id
+  def self.find_by_title(title)
+    data = PlayDBConnection.instance.execute("SELECT * FROM plays")
+    all_plays = data.map { |datum| Play.new(datum) }
+    all_plays.each{|play|return play if play.title = title}
+    raise "No title found"
+  end 
+
+  def self.find_by_playwright(name)
+    data = PlayDBConnection.instance.execute("SELECT * FROM plays")
+    all_plays = data.map { |datum| Play.new(datum) }
+    all_plays.select{|play|play.playwright_id == name.id}
+
+  end 
 
   def self.all
     data = PlayDBConnection.instance.execute("SELECT * FROM plays")
@@ -49,3 +62,55 @@ class Play
     SQL
   end
 end
+
+class Playwright 
+  attr_accessor :id, :name, :birth_year 
+  def self.all 
+    data = PlayDBConnection.instance.execute("SELECT * FROM playwrights")
+    data.map { |datum| Playwright.new(datum) }
+  end 
+
+  def self.find_by_name(name)
+    data = PlayDBConnection.instance.execute("SELECT * FROM playwrights")
+    all_plays = data.map { |datum| Play.new(datum) }
+    all_plays.each{|playwright|return playwright if playwright.name = name}
+    raise "No playwright found"
+  end 
+
+  def initialize(options)
+    @id = options['id']
+    @name = options['name']
+    @birth_year = options['birth_year']
+  end 
+
+  def create 
+    raise "#{self} already in database" if self.id
+    PlayDBConnection.instance.execute(<<-SQL, self.name, self.birth_year)
+      INSERT INTO
+        playwrights (name,birth_year)
+      VALUES
+        (?, ?)
+    SQL
+    self.id = PlayDBConnection.instance.last_insert_row_id
+  end 
+
+  def update 
+    raise "#{self} not in database" unless self.id
+    PlayDBConnection.instance.execute(<<-SQL, self.name, self.birth_year,self.id)
+      UPDATE
+        playwrights
+      SET
+        name = ?, birth_year = ?
+      WHERE
+        id = ?
+    SQL
+  end 
+
+  def get_plays
+    data = PlayDBConnection.instance.execute("SELECT * FROM plays")
+    all_plays = data.map { |datum| Play.new(datum) }
+    all_plays.select{|play|play.playwright_id == self.id}
+    
+  end 
+
+end 
