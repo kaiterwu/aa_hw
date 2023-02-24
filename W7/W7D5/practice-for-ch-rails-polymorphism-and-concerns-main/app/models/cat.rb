@@ -9,4 +9,5 @@
 #
 class Cat < ApplicationRecord
   validates :name, presence: true   
+  has_many :pictures, as: :toyable 
 end
