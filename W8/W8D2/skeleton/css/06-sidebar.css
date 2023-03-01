@@ -1,1 +1,15 @@
 /* PHASE 0: Sidebar */
+.profile-picture{
+    display: block;
+    position: relative;
+    margin-top: -100px;
+    z-index: auto;
+}
+
+.profile-info{
+
+}
+
+.profile-nav{
+
+}
