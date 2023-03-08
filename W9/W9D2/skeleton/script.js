@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dogPhotoList.appendChild(newPhotoLi);
   }
 
-  const submitPhotoButt = document.querySelector("photo-url-submit")
+  const submitPhotoButt = document.querySelector(".photo-url-submit")
   submitPhotoButt.addEventListener("click",processPhotoSubmit)
 
 
